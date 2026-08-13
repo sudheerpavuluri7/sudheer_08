@@ -1,0 +1,61 @@
+-->Delete Middle Node
+package com.basics;
+
+import java.util.Scanner;
+
+class Node{
+	int val;
+	Node next;
+
+	public Node(int data) {
+		this.val = data;
+	}	
+}
+
+public class Main {
+
+	public static void printLL(Node head) {
+		Node curr = head;
+		while(curr != null) {
+			System.out.print(curr.val + " ");
+			curr = curr.next;
+		}
+	}
+	
+	public static Node deleteMiddleNode(Node head) {
+		
+		if(head == null || head.next == null) {
+			return null;
+		}
+		Node slow = head;
+		Node fast = head.next.next;
+		while(fast != null && fast.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		slow.next = slow.next.next;	
+		return head;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Node head = null;
+		Node curr = null;
+		while(true) {
+			int val = sc.nextInt();
+			if(val == -1) {
+				break;
+			}
+			if(head == null) {
+				head = new Node(val);
+				curr = head;
+			}else {
+				curr.next = new Node(val);
+				curr = curr.next;	
+			}
+		}
+		head = deleteMiddleNode(head);
+		printLL(head);
+
+	}
+}
