@@ -1,0 +1,94 @@
+package com.basics;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Node class for creating linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Check whether the linked list is a palindrome
+    public static boolean isPalindrome(Node head) {
+
+        // Create an ArrayList to store linked list values
+        Node curr = head;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        // Store all node values in the ArrayList
+        while (curr != null) {
+            list.add(curr.val);
+            curr = curr.next;
+        }
+
+        // Set pointers at both ends of the ArrayList
+        int left = 0;
+        int right = list.size() - 1;
+
+        // Compare values from both ends
+        while (left < right) {
+
+            // If values are different, it is not a palindrome
+            if (list.get(left) != list.get(right)) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        // All values matched
+        return true;
+    }
+
+    // Print the linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Node head = null;
+        Node curr = null;
+
+        // Read length of linked list
+        int length = sc.nextInt();
+
+        // Create linked list
+        while (length > 0) {
+
+            int val = sc.nextInt();
+
+            if (head == null) {
+                head = new Node(val);
+                curr = head;
+            } else {
+                curr.next = new Node(val);
+                curr = curr.next;
+            }
+
+            length--;
+        }
+
+        // Check whether linked list is a palindrome
+        boolean result = isPalindrome(head);
+
+        // Print result
+        System.out.println(result);
+    }
+}
