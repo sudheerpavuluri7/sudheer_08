@@ -1,0 +1,128 @@
+package com.basics;
+
+import java.util.Scanner;
+
+// Node class for creating linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Merge two sorted linked lists
+    public static Node mergeTwoLists(Node list1, Node list2) {
+
+        // Dummy node to make result list creation easier
+        Node dummy = new Node(0);
+
+        // Pointer to build the result list
+        Node curr = dummy;
+
+        // Compare nodes from both lists
+        while (list1 != null && list2 != null) {
+
+            if (list1.val < list2.val) {
+
+                // Add node from list1
+                curr.next = new Node(list1.val);
+                curr = curr.next;
+                list1 = list1.next;
+
+            } else {
+
+                // Add node from list2
+                curr.next = new Node(list2.val);
+                curr = curr.next;
+                list2 = list2.next;
+            }
+        }
+
+        // Add remaining nodes from list1
+        while (list1 != null) {
+            curr.next = new Node(list1.val);
+            curr = curr.next;
+            list1 = list1.next;
+        }
+
+        // Add remaining nodes from list2
+        while (list2 != null) {
+            curr.next = new Node(list2.val);
+            curr = curr.next;
+            list2 = list2.next;
+        }
+
+        // Return the actual result list
+        return dummy.next;
+    }
+
+    // Print linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Create first linked list
+        Node list1 = null;
+        Node curr1 = null;
+
+        // Read length of first linked list
+        int length1 = sc.nextInt();
+
+        while (length1 > 0) {
+
+            int val = sc.nextInt();
+
+            if (list1 == null) {
+                list1 = new Node(val);
+                curr1 = list1;
+            } else {
+                curr1.next = new Node(val);
+                curr1 = curr1.next;
+            }
+
+            length1--;
+        }
+
+        // Create second linked list
+        Node list2 = null;
+        Node curr2 = null;
+
+        // Read length of second linked list
+        int length2 = sc.nextInt();
+
+        while (length2 > 0) {
+
+            int val = sc.nextInt();
+
+            if (list2 == null) {
+                list2 = new Node(val);
+                curr2 = list2;
+            } else {
+                curr2.next = new Node(val);
+                curr2 = curr2.next;
+            }
+
+            length2--;
+        }
+
+        // Merge the two sorted linked lists
+        Node result = mergeTwoLists(list1, list2);
+
+        // Print the merged list
+        printLL(result);
+    }
+}
