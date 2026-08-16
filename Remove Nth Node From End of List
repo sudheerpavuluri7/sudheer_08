@@ -1,0 +1,98 @@
+package com.basics;
+
+import java.util.Scanner;
+
+// Node class for creating linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Remove the nth node from the end of the linked list
+    public static Node removeNthFromEnd(Node head, int n) {
+
+        // Find the length of the linked list
+        int length = 0;
+        Node curr = head;
+
+        while (curr != null) {
+            length++;
+            curr = curr.next;
+        }
+
+        // If the first node has to be removed
+        if (n == length) {
+            return head.next;
+        }
+
+        // Move to the node before the node to be removed
+        curr = head;
+
+        for (int i = 1; i <= length - n - 1; i++) {
+            curr = curr.next;
+        }
+
+        // Remove the nth node from the end
+        curr.next = curr.next.next;
+
+        // Return the updated head
+        return head;
+    }
+
+    // Print the linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Create the linked list
+        Node head = null;
+        Node curr = null;
+
+        // Read linked list values until -1
+        while (true) {
+
+            int val = sc.nextInt();
+
+            // -1 indicates the end of the linked list
+            if (val == -1) {
+                break;
+            }
+
+            // Create the first node
+            if (head == null) {
+                head = new Node(val);
+                curr = head;
+            } else {
+
+                // Add new node to the end
+                curr.next = new Node(val);
+                curr = curr.next;
+            }
+        }
+
+        // Read n
+        int n = sc.nextInt();
+
+        // Remove nth node from the end
+        head = removeNthFromEnd(head, n);
+
+        // Print the updated linked list
+        printLL(head);
+    }
+}
