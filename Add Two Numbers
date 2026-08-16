@@ -1,0 +1,147 @@
+-->Add Two Numbers
+package com.basics;
+
+import java.util.Scanner;
+
+// Node class for creating a linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Add two numbers represented by linked lists
+    public static Node addTwoNumbers(Node l1, Node l2) {
+
+        // Dummy node to make result list creation easier
+        Node dummy = new Node(0);
+
+        // Current node used to build the result list
+        Node curr = dummy;
+
+        // Store carry from previous addition
+        int carry = 0;
+
+        // Continue until both linked lists are completely processed
+        while (l1 != null || l2 != null) {
+
+            int x = 0;
+            int y = 0;
+
+            // Get value from first list
+            if (l1 != null) {
+                x = l1.val;
+                l1 = l1.next;
+            }
+
+            // Get value from second list
+            if (l2 != null) {
+                y = l2.val;
+                l2 = l2.next;
+            }
+
+            // Add both values and carry
+            int sum = x + y + carry;
+
+            // Check if carry is required
+            if (sum >= 10) {
+                carry = 1;
+                sum = sum - 10;
+            } else {
+                carry = 0;
+            }
+
+            // Add the result digit to the result list
+            curr.next = new Node(sum);
+
+            // Move current pointer to the newly created node
+            curr = curr.next;
+        }
+
+        // If carry is still present, add one more node
+        if (carry == 1) {
+            curr.next = new Node(1);
+        }
+
+        // Return the actual result list
+        // Skip the dummy node
+        return dummy.next;
+    }
+
+    // Print the linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Create first linked list
+        Node l1 = null;
+        Node curr1 = null;
+
+        // Read length of first linked list
+        int length1 = sc.nextInt();
+
+        while (length1 > 0) {
+
+            int val = sc.nextInt();
+
+            // Create the first node
+            if (l1 == null) {
+                l1 = new Node(val);
+                curr1 = l1;
+            } 
+            // Add new node to the end
+            else {
+                curr1.next = new Node(val);
+                curr1 = curr1.next;
+            }
+
+            length1--;
+        }
+
+        // Create second linked list
+        Node l2 = null;
+        Node curr2 = null;
+
+        // Read length of second linked list
+        int length2 = sc.nextInt();
+
+        while (length2 > 0) {
+
+            int val = sc.nextInt();
+
+            // Create the first node
+            if (l2 == null) {
+                l2 = new Node(val);
+                curr2 = l2;
+            } 
+            // Add new node to the end
+            else {
+                curr2.next = new Node(val);
+                curr2 = curr2.next;
+            }
+
+            length2--;
+        }
+
+        // Add the two linked lists
+        Node sum = addTwoNumbers(l1, l2);
+
+        // Print the result
+        printLL(sum);
+    }
+}
