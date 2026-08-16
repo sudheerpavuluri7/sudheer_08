@@ -1,0 +1,119 @@
+package com.basics;
+
+import java.util.Scanner;
+
+// Node class for creating linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Rotate the linked list to the right by k positions
+    public static Node rotateRight(Node head, int k) {
+
+        // If list is empty or has only one node
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Find length of the linked list
+        int length = 0;
+        Node curr = head;
+
+        while (curr != null) {
+            length++;
+            curr = curr.next;
+        }
+
+        // Reduce k if it is greater than length
+        k = k % length;
+
+        // No rotation needed
+        if (k == 0) {
+            return head;
+        }
+
+        // Find the new last node
+        curr = head;
+
+        for (int i = 1; i <= length - k - 1; i++) {
+            curr = curr.next;
+        }
+
+        // Node after curr becomes the new head
+        Node newHead = curr.next;
+
+        // Break the list
+        curr.next = null;
+
+        // Find the old last node
+        Node last = newHead;
+
+        while (last.next != null) {
+            last = last.next;
+        }
+
+        // Connect old last node to old head
+        last.next = head;
+
+        // Return new head
+        return newHead;
+    }
+
+    // Print the linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Create the linked list
+        Node head = null;
+        Node curr = null;
+
+        // Read values until -1
+        while (true) {
+
+            int val = sc.nextInt();
+
+            // -1 indicates end of linked list
+            if (val == -1) {
+                break;
+            }
+
+            // Create first node
+            if (head == null) {
+                head = new Node(val);
+                curr = head;
+            } else {
+
+                // Add new node to the end
+                curr.next = new Node(val);
+                curr = curr.next;
+            }
+        }
+
+        // Read k
+        int k = sc.nextInt();
+
+        // Rotate the linked list
+        head = rotateRight(head, k);
+
+        // Print the rotated list
+        printLL(head);
+    }
+}
