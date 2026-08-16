@@ -1,0 +1,110 @@
+-->Partition List
+package com.basics;
+
+import java.util.Scanner;
+
+// Node class for creating linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Partition linked list around x
+    public static Node partition(Node head, int x) {
+
+        // Dummy node for elements less than x
+        Node first = new Node(0);
+
+        // Dummy node for elements greater than or equal to x
+        Node second = new Node(0);
+
+        // Pointers to build both lists
+        Node firstCurr = first;
+        Node secondCurr = second;
+
+        // Traverse the original linked list
+        Node curr = head;
+
+        while (curr != null) {
+
+            // If value is less than x
+            if (curr.val < x) {
+
+                // Add node to first list
+                firstCurr.next = new Node(curr.val);
+                firstCurr = firstCurr.next;
+
+            } else {
+
+                // Add node to second list
+                secondCurr.next = new Node(curr.val);
+                secondCurr = secondCurr.next;
+            }
+
+            // Move to next node
+            curr = curr.next;
+        }
+
+        // Connect first list with second list
+        firstCurr.next = second.next;
+
+        // Return the actual first list
+        return first.next;
+    }
+
+    // Print linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Create the linked list
+        Node head = null;
+        Node curr = null;
+
+        // Read length of linked list
+        int length = sc.nextInt();
+
+        while (length > 0) {
+
+            int val = sc.nextInt();
+
+            // Create the first node
+            if (head == null) {
+                head = new Node(val);
+                curr = head;
+            } 
+            // Add new node to the end
+            else {
+                curr.next = new Node(val);
+                curr = curr.next;
+            }
+
+            length--;
+        }
+
+        // Read the value x
+        int x = sc.nextInt();
+
+        // Partition the linked list
+        Node result = partition(head, x);
+
+        // Print the result
+        printLL(result);
+    }
+}
