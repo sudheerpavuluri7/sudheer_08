@@ -1,0 +1,98 @@
+-->Swapping Nodes in a Linked List
+package com.basics;
+
+import java.util.Scanner;
+
+// Node class for creating linked list
+class Node {
+    int val;
+    Node next;
+
+    public Node(int data) {
+        this.val = data;
+    }
+}
+
+public class Main {
+
+    // Swap kth node from beginning and kth node from end
+    public static Node swapNodes(Node head, int k) {
+
+        // Find length of linked list
+        int length = 0;
+        Node curr = head;
+
+        while (curr != null) {
+            length++;
+            curr = curr.next;
+        }
+
+        // Find kth node from beginning
+        Node first = head;
+
+        for (int i = 1; i <= k - 1; i++) {
+            first = first.next;
+        }
+
+        // Find kth node from end
+        Node second = head;
+
+        for (int i = 1; i <= length - k; i++) {
+            second = second.next;
+        }
+
+        // Swap values
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+
+        return head;
+    }
+
+    // Print linked list
+    public static void printLL(Node head) {
+
+        Node curr = head;
+
+        while (curr != null) {
+            System.out.print(curr.val + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Node head = null;
+        Node curr = null;
+
+        // Read length of linked list
+        int length = sc.nextInt();
+
+        // Create linked list
+        while (length > 0) {
+
+            int val = sc.nextInt();
+
+            if (head == null) {
+                head = new Node(val);
+                curr = head;
+            } else {
+                curr.next = new Node(val);
+                curr = curr.next;
+            }
+
+            length--;
+        }
+
+        // Read k
+        int k = sc.nextInt();
+
+        // Swap kth nodes
+        head = swapNodes(head, k);
+
+        // Print result
+        printLL(head);
+    }
+}
