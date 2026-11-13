@@ -1,0 +1,44 @@
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); // Number of elements
+
+        int[] ar = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            ar[i] = sc.nextInt(); // Array elements
+        }
+
+        int k = sc.nextInt(); // Length of maximum subsequence
+
+        ArrayList<int[]> list = new ArrayList<int[]>();
+
+        for (int i = 0; i < ar.length; i++) {
+            int[] a = {ar[i], i};
+            list.add(a);
+        }
+
+        Collections.sort(list, (a, b) -> b[0] - a[0]);
+
+        ArrayList<int[]> ll = new ArrayList<int[]>();
+
+        for (int i = 0; i < k; i++) {
+            ll.add(list.get(i));
+        }
+
+        Collections.sort(ll, (a, b) -> a[1] - b[1]);
+
+        int[] res = new int[k];
+
+        for (int i = 0; i < k; i++) {
+            res[i] = ll.get(i)[0];
+        }
+
+        System.out.println(Arrays.toString(res));
+    }
+}
