@@ -1,0 +1,45 @@
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); // Number of cards
+
+        int[] deck = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            deck[i] = sc.nextInt(); // Card values
+        }
+
+        Arrays.sort(deck);
+
+        int[] result = new int[n];
+
+        Queue<Integer> q = new LinkedList<>();
+
+        // Store all positions
+        for (int i = 0; i < n; i++) {
+            q.add(i);
+        }
+
+        // Place sorted cards into valid positions
+        for (int card : deck) {
+
+            int index = q.poll();
+
+            result[index] = card;
+
+            // Move the next position to the back
+            if (!q.isEmpty()) {
+                q.add(q.poll());
+            }
+        }
+
+        System.out.println(Arrays.toString(result));
+
+        sc.close();
+    }
+}
