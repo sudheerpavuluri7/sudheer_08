@@ -1,0 +1,32 @@
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); // Number of elements
+
+        int[] nums = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt(); // Array elements
+        }
+
+        int k = sc.nextInt(); // Position of largest element to find
+
+        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+
+        for (int i = 0; i < nums.length; i++) {
+            queue.offer(nums[i]);
+        }
+
+        while (queue.size() > k) {
+            queue.poll();
+        }
+
+        System.out.println(queue.poll());
+
+    }
+}
