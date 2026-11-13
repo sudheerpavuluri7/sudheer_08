@@ -1,0 +1,48 @@
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); // Number of elements
+
+        int[] nums = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt(); // Array elements
+        }
+
+        int k = sc.nextInt(); // Number of operations
+
+        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+
+        for (int i : nums) {
+            queue.offer(i);
+        }
+
+        while (k > 0) {
+
+            int x = queue.poll();
+
+            x++;
+
+            queue.offer(x);
+
+            k--;
+        }
+
+        int mod = 1_000_000_007;
+
+        long prod = 1;
+
+        for (int i : queue) {
+            prod = (prod * i) % mod;
+        }
+
+        System.out.println((int) prod);
+
+        sc.close();
+    }
+}
